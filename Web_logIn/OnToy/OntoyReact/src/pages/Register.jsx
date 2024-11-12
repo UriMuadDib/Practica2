@@ -3,8 +3,15 @@ import { useEffect } from 'react';
 
 import './css/register.css';
 import { signup } from '../api/auth';
+import Modal from '../components/Modal';
+
+
+
 
 const Register = () => {
+
+    const [registerMessage, setRegisterMessage] = useState(''); // Estado para manejar el mensaje de éxito
+
     const [formData, setFormData] = useState({
         boleta: '',
         email: '',
@@ -31,6 +38,10 @@ const Register = () => {
             const data = await signup(formData);
             console.log('Usuario registrado:', data);
             setErrorMessage('');
+            setRegisterMessage('Registro exitoso!'); // Establecer el mensaje de éxito
+            setTimeout(() => {
+                window.location.href = '/login';
+            }, 2500);
         } catch (error) {
             console.error('Error en el registro', error);
             setErrorMessage(error.response?.data?.message || 'Error en el registro. Inténtalo de nuevo.');
@@ -48,6 +59,15 @@ const Register = () => {
       }, []);
 
     return (
+
+        <>
+        {registerMessage && 
+            <Modal> 
+                <i class="fa-solid fa-check-circle"></i>
+                <h2>{registerMessage}</h2>
+            </Modal>
+                
+            } {/* Mostrar mensaje de éxito */}
         <div className="register-container">
             <h2>Registro</h2>
             {errorMessage && <p className="error-message">{errorMessage}</p>} {}
@@ -121,6 +141,7 @@ const Register = () => {
                 <button type="submit">Registrar</button>
             </form>
         </div>
+        </>
     );
 };
 

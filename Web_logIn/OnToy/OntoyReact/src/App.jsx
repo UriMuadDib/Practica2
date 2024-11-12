@@ -7,6 +7,7 @@ import Landing from './pages/Landing';
 import Register from './pages/Register';
 import Perfil from './pages/Perfil';
 import ListaUsuarios from './pages/ListaUsuarios';
+import EditarUsuario from './pages/EditarUsuario';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { AuthRoute } from './components/AuthRoute';
 import MapESCOM from './pages/MapESCOM';
@@ -24,6 +25,7 @@ function App() {
 
           <Route element={<AuthRoute type="admin" />}>
             <Route path="/listaUsuarios" element={<ListaUsuarios />} />
+            <Route path="/editarUsuario/:boleta" element={<EditarUsuario />} />
           </Route>
 
           <Route element={<AuthRoute type="protected" />}>

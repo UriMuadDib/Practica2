@@ -3,10 +3,14 @@ import { getUsuarios, deleteUsuario } from '../api/users';
 import './css/listaUsuarios.css';
 import Nav from '../components/Navbar';
 import Button from '../components/Button';
+import { useNavigate } from 'react-router-dom';
+
 
 const ListaUsuarios = () => {
     const [usuarios, setUsuarios] = useState([]);  // Estado para almacenar los usuarios
     const [error, setError] = useState(null);      // Estado para manejar errores
+    const navigate = useNavigate();
+
 
     useEffect(() => {
         const obtenerUsuarios = async () => {
@@ -33,6 +37,10 @@ const ListaUsuarios = () => {
             setError('Error al eliminar usuario');
         }
     };
+
+    const handleEditClick = (boleta) => {
+        navigate(`/editarUsuario/${boleta}`);
+      };
     
     
     if (error) {
@@ -40,7 +48,6 @@ const ListaUsuarios = () => {
         return <div>{error}</div>;  // Muestra el error si lo hay
     }
 
-    console.log(localStorage.getItem('user'));
     return (
         <div className='lista-usuarios'>
             <Nav />
@@ -67,7 +74,7 @@ const ListaUsuarios = () => {
                                 <td>{usuario.apmat}</td>
                                 <td>{usuario.email}</td>
                                 <td>
-                                    <Button onClick={() => handleEliminarUsuario(usuario.boleta)} children='Editar' type='button' className='button-blue' />
+                                    <Button onClick={() => handleEditClick(usuario.boleta)} children='Editar' type='button' className='button-blue' />
                                 </td>
                                 <td>
                                     <Button onClick={() => handleEliminarUsuario(usuario.boleta)} children='Eliminar' type='button' className='button-red' />

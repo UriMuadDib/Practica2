@@ -15,7 +15,6 @@ const Nav = () => {
         localStorage.clear();
         window.location.href = '/';
     };
-
     return (
         <header className='header'>
             <div className='logo'>
@@ -37,6 +36,11 @@ const Nav = () => {
                             <li><a href="/register">Registrarse</a></li>
                             <li><a href="/login">Iniciar Sesión</a></li>
                         </>
+                    )}
+
+                    {isLoggedIn && JSON.parse(localStorage.getItem('user')).boleta === 'admin077' && (
+
+                        <li><a href='/listaUsuarios'>Lista Usuarios</a></li>
                     )}
 
                     {isLoggedIn && (
